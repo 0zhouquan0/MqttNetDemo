@@ -156,7 +156,11 @@ namespace MqttClientDemo
 
         private void CombServer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mqttClient = null;
+            if (mqttClient!=null)
+            {
+                mqttClient.Dispose();
+            }
+          
             Task.Run(async () => { await ConnectMqttServerAsync(); });
         }
 
