@@ -25,7 +25,7 @@ namespace MqttClientDemo
         {
             InitializeComponent();
 
-            Task.Run(async () => { await ConnectMqttServerAsync(); });
+            //Task.Run(async () => { await ConnectMqttServerAsync(); });
         }
 
         private async Task ConnectMqttServerAsync()
@@ -40,7 +40,9 @@ namespace MqttClientDemo
 
             try
             {
-                if (this.CombServer.SelectedIndex == 1)
+                var index = this.CombServer.InvokeRequired ? (int)this.CombServer.EndInvoke(this.CombServer.BeginInvoke(new Func<int>(()=> { return this.CombServer.SelectedIndex; }) )): this.CombServer.SelectedIndex;
+
+                if (index == 1)
                 {
                     var options = new MqttClientOptionsBuilder()
                                      .WithClientId(Guid.NewGuid().ToString().Substring(0, 5))
@@ -150,6 +152,20 @@ namespace MqttClientDemo
             this.CombServer.Items.Add("本地服务器");
             this.CombServer.Items.Add("EMQ服务器");
             this.CombServer.SelectedIndex = 0;
+        }
+
+        private void CombServer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mqttClient = null;
+            Task.Run(async () => { await ConnectMqttServerAsync(); });
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            Invoke((new Action(() =>
+            {
+                txtReceiveMessage.Clear();
+            })));
         }
     }
 }

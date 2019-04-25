@@ -129,6 +129,7 @@
             this.BtnClear.TabIndex = 8;
             this.BtnClear.Text = "清空";
             this.BtnClear.UseVisualStyleBackColor = true;
+            this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // CombServer
             // 
@@ -138,6 +139,7 @@
             this.CombServer.Name = "CombServer";
             this.CombServer.Size = new System.Drawing.Size(93, 20);
             this.CombServer.TabIndex = 9;
+            this.CombServer.SelectedIndexChanged += new System.EventHandler(this.CombServer_SelectedIndexChanged);
             // 
             // Main
             // 
