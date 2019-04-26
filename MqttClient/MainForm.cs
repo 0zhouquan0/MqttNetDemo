@@ -143,7 +143,7 @@ namespace MqttClientDemo
                 Retain = false
             };
 
-            mqttClient.PublishAsync(appMsg).Wait();
+            Task.Run(async () => { await mqttClient.PublishAsync(appMsg); });
         }
 
         private void Main_Load(object sender, EventArgs e)
