@@ -139,7 +139,7 @@ namespace MqttClientDemo
             {
                 Topic = topic,
                 Payload = Encoding.UTF8.GetBytes(inputString),
-                QualityOfServiceLevel = MqttQualityOfServiceLevel.AtMostOnce,//至少一次
+                QualityOfServiceLevel = MqttQualityOfServiceLevel.ExactlyOnce,//只有一次
                 Retain = false
             };
 
@@ -159,6 +159,7 @@ namespace MqttClientDemo
             if (mqttClient!=null)
             {
                 mqttClient.Dispose();
+                mqttClient = null;
             }
           
             Task.Run(async () => { await ConnectMqttServerAsync(); });
